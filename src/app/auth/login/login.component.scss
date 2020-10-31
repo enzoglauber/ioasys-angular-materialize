@@ -1,9 +1,33 @@
+@import "node_modules/materialize-css/sass/components/color-variables.scss";
+@import "node_modules/materialize-css/sass/components/variables.scss";
+@import '../../../assets/sass/variables.scss';
+
 .form-auth {
   text-align: center;
   height: calc(100vh - 100px);
+  width: 500px;
+  margin: 0 auto;
 
+  .logo {
+    min-width: 260px;
+    margin-bottom: 35px;
+  }
+  
   .btn-login {
     display: block;
     margin: 0 20px;
+  }
+
+  form {
+    .input-field {
+      margin: 0;
+    }
+  }
+}
+
+@media #{$small-and-down} {
+  .form-auth {
+    width: inherit !important;
+    margin: none;
   }
 }

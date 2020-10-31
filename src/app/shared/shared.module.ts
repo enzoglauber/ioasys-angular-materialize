@@ -14,10 +14,13 @@ import { HeaderComponent } from './layout/header/header.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule,
+    RouterModule, 
     
   ],
   exports: [
+    FormsModule,
+    ReactiveFormsModule,
+
     HeaderComponent,
     FooterComponent,
     ShowAuthedDirective
