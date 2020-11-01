@@ -31,29 +31,55 @@
         </div>
         
         <div class="row">
-          <div class="input-field col s12">
-            <input id="email" type="email" formControlName="email" class="validate">
-            <label for="email">E-mail</label>
-            <span class="helper-text" data-error="wrong"></span>
-          </div>
-        </div>
-    
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" class="validate">
-            <label for="password">Senha</label>
-            <i class="fa fa-2x sufix"
-              *ngIf="showPassword !== null"
-              [ngClass]="{'fa-eye-slash': showPassword, 'fa-eye':!showPassword }"
-              (click)="toggleShowPassword()"
-            ></i>
-            <span class="helper-text" data-error="wrong"></span>
+          <div class="col s12">
+            <div class="input-field">
+              <i class="fa fa-unlock-alt p-fix"></i>
+
+              <label for="email">E-mail</label>
+              <input appAutoFocus id="email" type="email" formControlName="email" class="validate">
+              
+              <i class="fa fa-2x fa-exclamation-circle s-fix pink-text text-lighten-1" *ngIf="error"></i>
+            </div>
           </div>
         </div>
     
         <div class="row">
           <div class="col s12">
-            <button type="submit" class="waves-effect waves-light btn-large btn-login">Entrar</button>
+            <div class="input-field">
+              <i class="fa fa-envelope p-fix" ></i>
+
+              <label for="password">Senha</label>
+              <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" class="validate">
+
+              <i class="fa fa-2x s-fix"
+                *ngIf="!error"
+                [ngClass]="{'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"
+                (click)="toggleShowPassword()"
+              ></i>
+
+              <i class="fa fa-2x fa-exclamation-circle s-fix pink-text text-lighten-1" *ngIf="error"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <p
+              *ngFor="let e of error?.errors" 
+              class="pink-text text-lighten-1 error"
+            > {{e}} </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <button
+              type="submit" 
+              [disabled]="authForm.invalid"
+              class="waves-effect waves-light btn-large btn-login"
+            >
+              Entrar
+            </button>
           </div>
         </div>
       </form>

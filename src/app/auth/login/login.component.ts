@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { Error } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,9 @@ import { LoadingService } from 'src/app/core/services/loading.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  error: Error = { success: false, errors: ["Invalid login credentials. Please try again."] };
   authForm: FormGroup;
+  submitted = false;
   showPassword: boolean = false;
 
   constructor(
@@ -31,26 +34,39 @@ export class LoginComponent implements OnInit {
     // this.loadingService.show()
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   toggleShowPassword(): void {
     this.showPassword = !this.showPassword
   }
 
-  submitForm() {
-    // this.loadingService.toggle()
-
-    this.showPassword = null
-    // this.isSubmitting = true;
-    // this.errors = {errors: {}};
-    // const credentials = this.authForm.value;
-    // this.userService
-    //   .attemptAuth(`login`, credentials)
-    //   .subscribe(
-    //     data => this.router.navigateByUrl('/'),
-    //     err => console.error(err)
-    //   );
+  get control() {
+    return this.authForm.controls;
   }
 
+  submitForm() {
+    this.submitted = true;
+    this.error = null;
+
+    // this.loadingService.toggle()
+    // this.showPassword = null
+    console.log('form', this.authForm.value);
+    
+
+
+    // this.isSubmitting = true;
+    // this.errors = {errors: {}};
+    const credentials = this.authForm.value;
+    this.userService
+      .sign_in(credentials)
+      .subscribe(
+        data => this.router.navigateByUrl('/'),
+        (error: Error) => this.setError(error)
+      )
+  }
+
+
+  private setError(error: Error) {
+    this.error = error;
+  }
 }

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { LoadingComponent } from './components/loading/loading.component';
+import { AutofocusDirective } from './directives/auto-focus.directive';
 import { ShowAuthedDirective } from './directives/show-authed.directive';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -24,12 +25,15 @@ import { HeaderComponent } from './layout/header/header.component';
     HeaderComponent,
     FooterComponent,
     ShowAuthedDirective,
+    
+    
     LoadingComponent
   ],
   declarations: [
     HeaderComponent,
     FooterComponent,
     ShowAuthedDirective,
+    AutofocusDirective,
     LoadingComponent
   ],
 })

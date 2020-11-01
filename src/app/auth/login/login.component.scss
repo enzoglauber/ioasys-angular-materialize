@@ -21,12 +21,32 @@
     .input-field {
       margin: 0;
 
-      .sufix {
+      &>label {
+        left: 30px;
+      }
+
+      .s-fix {
         position: absolute;
-        top: 8px;
-        right: 20px;
+        top: 7px;
+        right: 10px;
+      }
+
+      input {
+        padding-left: 32px;
+        box-sizing: inherit;
+      }
+
+      .p-fix {
+        position: absolute;
+        top: 14px;
+        left: 10px;
+        color: $pink;
       }
     }
+  }
+
+  .error {
+    margin: 0;
   }
 }
 

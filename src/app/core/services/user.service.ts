@@ -66,6 +66,16 @@ export class UserService {
     ));
   }
 
+  sign_in(credentials): Observable<any> {
+    return this.apiService.post('/users/auth/sign_in', credentials).pipe(
+      map( data => {
+        console.log('legal', data)
+        this.setAuth(data.user);
+        return data;
+      })
+    );
+  }
+
   getCurrentUser(): User {
     return this.currentUserSubject.value;
   }
