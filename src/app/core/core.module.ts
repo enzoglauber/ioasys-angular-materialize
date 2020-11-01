@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { HttpTokenInterceptor } from './interceptors';
 import { ApiService, AuthGuard, JwtService, UserService } from './services';
+import { LoadingService } from './services/loading.service';
 
 @NgModule({
   declarations: [],
@@ -15,7 +16,8 @@ import { ApiService, AuthGuard, JwtService, UserService } from './services';
     ApiService,
     AuthGuard,
     JwtService,
-    UserService
+    UserService,
+    LoadingService
   ]
 })
 export class CoreModule { }
