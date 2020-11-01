@@ -11,6 +11,8 @@ import { LoadingService } from 'src/app/core/services/loading.service';
 })
 export class LoginComponent implements OnInit {
   authForm: FormGroup;
+  showPassword: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -20,7 +22,7 @@ export class LoginComponent implements OnInit {
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
-      'email': ['', Validators.required],
+      'email': ['', [Validators.required, Validators.email]],
       'password': ['', Validators.required]
     });
 
@@ -32,9 +34,14 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submitForm() {
-    this.loadingService.toggle()
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword
+  }
 
+  submitForm() {
+    // this.loadingService.toggle()
+
+    this.showPassword = null
     // this.isSubmitting = true;
     // this.errors = {errors: {}};
     // const credentials = this.authForm.value;

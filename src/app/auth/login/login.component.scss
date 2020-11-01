@@ -20,6 +20,12 @@
   form {
     .input-field {
       margin: 0;
+
+      .sufix {
+        position: absolute;
+        top: 8px;
+        right: 20px;
+      }
     }
   }
 }

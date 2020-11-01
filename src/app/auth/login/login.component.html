@@ -40,8 +40,13 @@
     
         <div class="row">
           <div class="input-field col s12">
-            <input id="password" type="password" formControlName="password" class="validate">
+            <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" class="validate">
             <label for="password">Senha</label>
+            <i class="fa fa-2x sufix"
+              *ngIf="showPassword !== null"
+              [ngClass]="{'fa-eye-slash': showPassword, 'fa-eye':!showPassword }"
+              (click)="toggleShowPassword()"
+            ></i>
             <span class="helper-text" data-error="wrong"></span>
           </div>
         </div>
