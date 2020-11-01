@@ -11,7 +11,7 @@ import { Error } from 'src/app/shared/interfaces';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  error: Error = { success: false, errors: ["Invalid login credentials. Please try again."] };
+  error: Error;
   authForm: FormGroup;
   submitted = false;
   showPassword: boolean = false;
@@ -25,13 +25,9 @@ export class LoginComponent implements OnInit {
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
-      'email': ['', [Validators.required, Validators.email]],
-      'password': ['', Validators.required]
+      'email': ['testeapple@ioasys.com.br', [Validators.required, Validators.email]],
+      'password': ['12341234', Validators.required]
     });
-
-    this.loadingService.active$.subscribe((active) => console.log(active))
-
-    // this.loadingService.show()
   }
 
   ngOnInit(): void { }
@@ -46,10 +42,9 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     this.submitted = true;
-    this.error = null;
+    this.setError(null);
+    this.loadingService.show()
 
-    // this.loadingService.toggle()
-    // this.showPassword = null
     console.log('form', this.authForm.value);
     
 
@@ -57,16 +52,22 @@ export class LoginComponent implements OnInit {
     // this.isSubmitting = true;
     // this.errors = {errors: {}};
     const credentials = this.authForm.value;
-    this.userService
-      .sign_in(credentials)
-      .subscribe(
-        data => this.router.navigateByUrl('/'),
-        (error: Error) => this.setError(error)
-      )
+    this.userService.sign_in(credentials).subscribe(
+      (data) => {
+        console.log('DATA', data);
+        this.router.navigateByUrl('/companies')
+      },
+      (error: Error) => {
+        this.loadingService.hide()
+        this.setError(error)
+      })
   }
 
 
   private setError(error: Error) {
-    this.error = error;
+    const codition = error === null || error.errors?.length
+    this.error = (codition)
+                  ? error
+                  : null;
   }
 }

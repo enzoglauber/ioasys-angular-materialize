@@ -38,7 +38,7 @@
               <label for="email">E-mail</label>
               <input appAutoFocus id="email" type="email" formControlName="email" class="validate">
               
-              <i class="fa fa-2x fa-exclamation-circle s-fix pink-text text-lighten-1" *ngIf="error"></i>
+              <i class="fa fa-2x fa-exclamation-circle s-fix pink-text text-lighten-1" *ngIf="error?.success === false"></i>
             </div>
           </div>
         </div>
@@ -52,12 +52,12 @@
               <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" class="validate">
 
               <i class="fa fa-2x s-fix"
-                *ngIf="!error"
+                *ngIf="error?.success === null || error?.success"
                 [ngClass]="{'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"
                 (click)="toggleShowPassword()"
               ></i>
 
-              <i class="fa fa-2x fa-exclamation-circle s-fix pink-text text-lighten-1" *ngIf="error"></i>
+              <i class="fa fa-2x fa-exclamation-circle s-fix pink-text text-lighten-1" *ngIf="error?.success === false"></i>
             </div>
           </div>
         </div>
