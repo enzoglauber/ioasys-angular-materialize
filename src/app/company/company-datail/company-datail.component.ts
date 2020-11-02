@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,6 +14,7 @@ export class CompanyDatailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -21,4 +23,7 @@ export class CompanyDatailComponent implements OnInit {
     });
   }
 
+  goBack() {
+    this.location.back();
+  }
 }

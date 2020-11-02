@@ -1,5 +1,9 @@
-<app-header>
-  
+<app-header class="header">  
+  <i class="material-icons text-white" (click)="goBack()">keyboard_backspace</i>
+
+  <div class="brand-logo">
+    {{company.enterprise_name}}
+  </div>
 </app-header>
 
 <div class="container">
