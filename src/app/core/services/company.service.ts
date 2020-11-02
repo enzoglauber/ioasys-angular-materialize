@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged, map, pluck } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, pluck, switchMap } from 'rxjs/operators';
 
 import { Company } from '../../shared/interfaces';
 import { ApiService } from './api.service';
@@ -22,6 +22,21 @@ export class CompanyService {
 
   show(id: string): Observable<Array<Company>> {
     return this.apiService.get(`/enterprises/${id}`).pipe(pluck('enterprise'));
+  }
+
+  search(terms: Subject<string>): Observable<any> {
+    return terms.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      switchMap(name => this.searchBy(name))
+    )
+  }
+
+  searchBy(name: string): Observable<any> {
+    const search = `?name=${name}`
+    return this.apiService.get(`/enterprises${search}`).pipe(
+      map(({ enterprises }) => this.setCompany(enterprises))
+    );
   }
 
   getCompany = (): Array<Company> => this.companies.value

@@ -1,3 +1,19 @@
+<app-header>
+  <form>
+    <div class="input-field">
+      <input
+        id="search"
+        type="search"
+        [(ngModel)]="search"
+        [ngModelOptions]="{standalone: true}"
+        (keyup)="search$.next($event.target.value)"
+        required>
+      <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+      <i class="material-icons">close</i>
+    </div>
+  </form>
+</app-header>
+
 <div class="container" >
   <ng-container *ngIf="companies$ | async as companies; else loading">
     <div class="row justify-content-between">
@@ -12,3 +28,5 @@
     <div>Loading ...</div>
   </ng-template>
 </div>
+
+<app-footer></app-footer>

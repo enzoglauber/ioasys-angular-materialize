@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CompanyService } from '../../core/services/company.service';
 import { Company } from '../../shared/interfaces';
 
@@ -10,10 +10,14 @@ import { Company } from '../../shared/interfaces';
 })
 export class CompaniesComponent implements OnInit {
   companies$: Observable<Array<Company>>
+  search: string = '';
+  search$ = new Subject<string>();
+
   constructor(
     private companyService: CompanyService
   ) {
     this.companyService.index().subscribe()
+    this.companyService.search(this.search$).subscribe();
   }
   
   ngOnInit(): void {
