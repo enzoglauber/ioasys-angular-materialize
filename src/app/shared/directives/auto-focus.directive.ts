@@ -1,20 +1,20 @@
-import { AfterContentInit, Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[autoFocus]'
 })
-export class AutofocusDirective implements AfterContentInit {
-  @Input() public appAutoFocus: boolean;
+export class AutofocusDirective implements OnInit {
 
-  public constructor(private el: ElementRef) {
-    console.log('ELLL ', this.el);
+  constructor(private el: ElementRef) {
+    if (!el.nativeElement['focus']) {
+      throw new Error('Element does not accept focus.');
+    }
   }
 
-  public ngAfterContentInit() {
-    setTimeout(() => {
-      
-      this.el.nativeElement.focus();
-    }, 500);
+  ngOnInit(): void {
+    const input: HTMLInputElement = this.el.nativeElement as HTMLInputElement;
+    input.focus();
+    input.select();
   }
 
 }

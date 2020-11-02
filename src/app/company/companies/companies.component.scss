@@ -2,3 +2,18 @@
   width: 392px;
   margin: 0px 10px;
 }
+
+.header {
+  .brand-logo {
+    top: 10px;
+
+    img {
+      height: 42px;
+    }
+  }
+
+  .btn-search {
+    padding: 0 20px;
+    cursor: pointer;
+  }
+}

@@ -1,5 +1,5 @@
-<app-header>
-  <form>
+<app-header class="header">
+  <form *ngIf="isSearchMode">
     <div class="input-field">
       <input
         id="search"
@@ -9,9 +9,22 @@
         (keyup)="search$.next($event.target.value)"
         required>
       <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-      <i class="material-icons">close</i>
+      <i class="material-icons" (click)="closeSearch()">close</i>
     </div>
   </form>
+  <a [routerLink]="['/']" class="brand-logo center" *ngIf="!isSearchMode">
+    <img class="responsive-img logo" 
+      src="assets/img/logo/logo-nav.png"
+      srcSet='assets/img/logo/logo-nav.png 800w,
+              assets/img/logo/logo-nav@2x.png 1600w,
+              assets/img/logo/logo-nav@3x.png 3200w'
+    />
+  </a>
+  <ul class="right hide-on-med-and-down" *ngIf="!isSearchMode" (click)="toggleSearchMode()">
+    <li>
+      <i class="material-icons text-white btn-search">search</i>
+    </li>
+  </ul>
 </app-header>
 
 <div class="container" >
