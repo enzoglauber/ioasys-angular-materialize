@@ -1,19 +1,19 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 
 @Injectable()
 export class JwtService {
-
   getToken(): String {
-    return window.localStorage['jwtToken'];
+    const headers = window.localStorage['jwtToken']
+    return (headers)? JSON.parse(headers) : "";
   }
 
-  saveToken(token: String) {
-    window.localStorage['jwtToken'] = token;
+  saveToken(header: any) {
+    window.localStorage['jwtToken'] = JSON.stringify(header);
   }
 
   destroyToken() {
     window.localStorage.removeItem('jwtToken');
   }
-
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CompanyService } from 'src/app/core/services/company.service';
+import { Company } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-companies',
@@ -6,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./companies.component.scss']
 })
 export class CompaniesComponent implements OnInit {
-
-  constructor() { }
-
+  companies$: Observable<Array<Company>>
+  constructor(
+    private companyService: CompanyService
+  ) {
+    this.companyService.index().subscribe()
+  }
+  
   ngOnInit(): void {
+    this.companies$ = this.companyService.companies$
+    this.companies$.subscribe(companies => console.log(companies, 'companies'))
+
   }
 
 }

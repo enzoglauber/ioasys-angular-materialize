@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
@@ -9,11 +9,11 @@ import { JwtService } from './jwt.service';
 
 @Injectable()
 export class UserService {
-  private currentUserSubject = new BehaviorSubject<User>({} as User);
-  public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
+  private user = new BehaviorSubject<User>({} as User);
+  public user$ = this.user.asObservable().pipe(distinctUntilChanged());
 
-  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
-  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+  private isAuth = new ReplaySubject<boolean>(1);
+  public isAuth$ = this.isAuth.asObservable();
 
   constructor (
     private apiService: ApiService,
@@ -23,72 +23,57 @@ export class UserService {
 
   // Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.
-  populate() {
-    // If JWT detected, attempt to get & store user's info
-    if (this.jwtService.getToken()) {
-      this.apiService.get('/user')
-      .subscribe(
-        data => this.setAuth(data.user),
-        err => this.purgeAuth()
-      );
-    } else {
-      // Remove any potential remnants of previous auth states
-      this.purgeAuth();
-    }
-  }
+  // populate() {
+  //   // If JWT detected, attempt to get & store user's info
+  //   if (this.jwtService.getToken()) {
+  //     this.apiService.get('/user')
+  //     .subscribe(
+  //       data => this.setAuth(data.user),
+  //       err => this.purgeAuth()
+  //     );
+  //   } else {
+  //     // Remove any potential remnants of previous auth states
+  //     this.purgeAuth();
+  //   }
+  // }
 
-  setAuth(user: User) {
+  setAuth(response: HttpResponse<any>): void {
     // Save JWT sent from server in localstorage
-    this.jwtService.saveToken(user.token);
+    const headers = {
+      'access-token': response.headers.get('access-token'),
+      'client': response.headers.get('client'),
+      'uid': response.headers.get('uid'),
+    }  
+    console.log('setAuth', response, headers)
+    this.jwtService.saveToken(headers);
     // Set current user data into observable
-    this.currentUserSubject.next(user);
-    // Set isAuthenticated to true
-    this.isAuthenticatedSubject.next(true);
+    this.setUser(response.body);
+    // Set isAuth to true
+    this.setIsAuth(true);
   }
 
-  purgeAuth() {
+  purgeAuth(): void {
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object
-    this.currentUserSubject.next({} as User);
+    this.setUser({} as User);
     // Set auth status to false
-    this.isAuthenticatedSubject.next(false);
-  }
-
-  attemptAuth(type, credentials): Observable<User> {
-    const route = (type === 'login') ? '/login' : '';
-    return this.apiService.post('/users' + route, {user: credentials})
-      .pipe(map(
-      data => {
-        this.setAuth(data.user);
-        return data;
-      }
-    ));
+    this.setIsAuth(false);
   }
 
   sign_in(credentials): Observable<any> {
     return this.apiService.post('/users/auth/sign_in', credentials).pipe(
-      map( data => {
-        console.log('legal', data)
-        this.setAuth(data.user);
-        return data;
+      map((response: HttpResponse<any>) => {
+        this.setAuth(response);
+        return response;
       })
     );
   }
 
-  getCurrentUser(): User {
-    return this.currentUserSubject.value;
-  }
+  setIsAuth = (isAuth: boolean): void => this.nextIsAuth(isAuth)
+  private nextIsAuth = (isAuth: boolean): void => this.isAuth.next(isAuth)
 
-  // Update the user on the server (email, pass, etc)
-  update(user): Observable<User> {
-    return this.apiService
-    .put('/user', { user })
-    .pipe(map(data => {
-      // Update the currentUser observable
-      this.currentUserSubject.next(data.user);
-      return data.user;
-    }));
-  }
-
+  getUser = (): User => this.user.value
+  setUser = (user: User): void => this.nextUser(user)
+  private nextUser = (user: User): void => this.user.next(user)
 }

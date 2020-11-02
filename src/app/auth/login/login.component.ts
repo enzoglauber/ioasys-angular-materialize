@@ -44,17 +44,11 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.setError(null);
     this.loadingService.show()
-
-    console.log('form', this.authForm.value);
-    
-
-
-    // this.isSubmitting = true;
-    // this.errors = {errors: {}};
+    // 
     const credentials = this.authForm.value;
     this.userService.sign_in(credentials).subscribe(
       (data) => {
-        console.log('DATA', data);
+        this.loadingService.hide()
         this.router.navigateByUrl('/companies')
       },
       (error: Error) => {
@@ -63,9 +57,8 @@ export class LoginComponent implements OnInit {
       })
   }
 
-
   private setError(error: Error) {
-    const codition = error === null || error.errors?.length
+    const codition = error === null || error?.errors?.length
     this.error = (codition)
                   ? error
                   : null;

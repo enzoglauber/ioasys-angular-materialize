@@ -1,7 +1,7 @@
+import { Investor } from './investor.model';
+
 export interface User {
-  email: string;
-  token: string;
-  username: string;
-  bio: string;
-  image: string;
+  enterprise?: string,
+  success: boolean,
+  investor: Investor
 }
