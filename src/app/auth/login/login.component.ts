@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/core/services';
-import { LoadingService } from 'src/app/core/services/loading.service';
-import { Error } from 'src/app/shared/interfaces';
+
+import { UserService } from '../../core/services';
+import { LoadingService } from '../../core/services/loading.service';
+import { Error } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-login',

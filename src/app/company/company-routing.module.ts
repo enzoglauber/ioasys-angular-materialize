@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CompaniesComponent } from './companies/companies.component';
 import { CompanyDatailComponent } from './company-datail/company-datail.component';
+import { CompanyDetailResolver } from './company-datail/company-detail-resolver.service';
 
 const routes: Routes = [
   {
@@ -11,7 +12,10 @@ const routes: Routes = [
   },
   {
     path: 'company/:idcompany',
-    component: CompanyDatailComponent
+    component: CompanyDatailComponent,
+    resolve: {
+      company: CompanyDetailResolver
+    }
   }
 ];
 

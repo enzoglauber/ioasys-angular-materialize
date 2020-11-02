@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CompanyService } from 'src/app/core/services/company.service';
-import { Company } from 'src/app/shared/interfaces';
+import { CompanyService } from '../../core/services/company.service';
+import { Company } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-companies',

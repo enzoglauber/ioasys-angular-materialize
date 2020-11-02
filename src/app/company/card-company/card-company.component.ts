@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Company } from 'src/app/shared/interfaces';
+
+import { Company } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-card-company',

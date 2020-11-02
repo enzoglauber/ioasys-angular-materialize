@@ -1,1 +1,17 @@
-<p>company-datail works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="card d-flex flex-column">
+        <div class="card-abbr d-flex align-items-center justify-content-center green lighten-1">
+          {{company.enterprise_name | companyAbbr}}
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p>{{company?.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
