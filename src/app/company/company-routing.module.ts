@@ -10,7 +10,7 @@ const routes: Routes = [
     component: CompaniesComponent
   },
   {
-    path: 'company/detail/:idcompany',
+    path: 'company/:idcompany',
     component: CompanyDatailComponent
   }
 ];

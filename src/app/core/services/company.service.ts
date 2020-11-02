@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class CompanyService {
-  private companies = new BehaviorSubject<Array<Company>>([]);
+  private companies = new BehaviorSubject<Array<Company>>(null);
   public companies$ = this.companies.asObservable().pipe(distinctUntilChanged());
 
   constructor (

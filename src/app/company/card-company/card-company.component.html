@@ -1,1 +1,12 @@
-<p>card-company works!</p>
+<div class="card d-flex align-items-stretch"  [routerLink]="['/company/', company.id]">
+  <div class="card-abbr d-flex align-items-center justify-content-center green lighten-1">
+    {{company.enterprise_name | companyAbbr}}
+  </div>
+  <div class="card-stacked">
+    <div class="card-content">
+      <p>{{company?.enterprise_name}}</p>
+      <p>{{company?.enterprise_type?.enterprise_type_name}}</p>
+      <p>{{company?.country}}</p>
+    </div>
+  </div>
+</div>

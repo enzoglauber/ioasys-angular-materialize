@@ -9,6 +9,7 @@ import { AutofocusDirective } from './directives/auto-focus.directive';
 import { ShowAuthedDirective } from './directives/show-authed.directive';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { CompanyAbbr } from './pipes/company-abbr.pipe';
 
 @NgModule({
   imports: [
@@ -24,17 +25,20 @@ import { HeaderComponent } from './layout/header/header.component';
 
     HeaderComponent,
     FooterComponent,
-    ShowAuthedDirective,
-    
-    
-    LoadingComponent
+    LoadingComponent,
+
+    CompanyAbbr,
+    AutofocusDirective,
+    ShowAuthedDirective,    
   ],
   declarations: [
     HeaderComponent,
     FooterComponent,
-    ShowAuthedDirective,
+    LoadingComponent,
+    
+    CompanyAbbr,
     AutofocusDirective,
-    LoadingComponent
+    ShowAuthedDirective,
   ],
 })
 export class SharedModule { }

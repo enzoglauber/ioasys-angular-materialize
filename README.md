@@ -1,3 +1,17 @@
+[] mobile first
+[x] favicon
+[x] login screen
+[x] validation errors login
+[x] interceptor http token
+[x] loading
+[x] toggle hide password
+[x] warning login fail
+[] search screen
+[] search
+[] detail screen
+[x] pipe name company "Empresa1" | 'E1'
+
+
 # IoasysAngularMaterialize
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.2.
