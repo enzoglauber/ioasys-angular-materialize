@@ -1,41 +1,44 @@
-[] mobile first
-[x] favicon
-[x] login screen
-[x] validation errors login
-[x] interceptor http token
-[x] loading
-[x] toggle hide password
-[x] warning login fail
-[] search screen
-[] search
-[] detail screen
-[x] pipe name company "Empresa1" | 'E1'
+# README
 
+Estes documento README tem como objetivo fornecer as informações necessárias para realização do projeto Empresas.
 
-# IoasysAngularMaterialize
+### O QUE FAZER ?
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.2.
+- Você deve fazer um fork deste repositório para o desenvolvimento do teste. Após o desenvolvimento você deve enviar por email um link do seu repositório. Nós iremos avaliar seu projeto e retornar o resultado do seu teste.
 
-## Development server
+### ESCOPO DO PROJETO
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Login e acesso de Usuário já registrado
+  - Para o login usamos padrões OAuth 2.0. Na resposta de sucesso do login a api retornará 3 custom headers (access-token, client, uid);
+  - Para ter acesso as demais APIS precisamos enviar esses 3 custom headers para a API autorizar a requisição;
+- Listagem de Empresas
+- Detalhamento de Empresas
+- Filtro de Empresas por nome e tipo
 
-## Code scaffolding
+### Informações Importantes
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Layout e recortes disponíveis no Zeplin
+- https://app.zeplin.io/
+- user: teste_web
+- senha: teste_ioasys
 
-## Build
+- Integração disponível a partir de uma collection para Postman (https://www.getpostman.com/apps) disponível neste repositório. Para utilizar a collection, vá até o postman e import a colllection que está disponível neste repositório, assim você terá acesso as documentação da API.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- É obrigatório utilização do ReactJS/Angular.
 
-## Running unit tests
+- É importante criar o layout responsivo, usando boas práticas e organização.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Independente de onde conseguiu chegar no teste é importante disponibilizar seu fonte para analisarmos.
 
-## Running end-to-end tests
+### Dados para Teste
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+- Servidor: http://empresas.ioasys.com.br
+- Versão da API: v1
+- Usuário de Teste: testeapple@ioasys.com.br
+- Senha de Teste : 12341234
 
-## Further help
+### Dicas
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- Você pode utilizar um dos frameworks: Bootstrap(http://getbootstrap.com/) ou Materializecss(http://materializecss.com).
+- No postman existem alguns parâmetros no header que devem ser passados em todas requests exceto na de login, eles serão retornados no endpoint de login, nos headers da request.
+- Sobrou tempo? Testes unitários, integração e e2e no sistema são bem vindos.

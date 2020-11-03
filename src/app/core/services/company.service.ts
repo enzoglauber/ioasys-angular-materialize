@@ -28,12 +28,15 @@ export class CompanyService {
     return terms.pipe(
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(name => this.searchBy(name))
+      switchMap(name => {
+        this.setCompany(null)
+        return this.searchBy(name)
+      })
     )
   }
 
   searchBy(name: string): Observable<any> {
-    const search = `?name=${name}`
+    const search = (name)? `?name=${name}`: ''
     return this.apiService.get(`/enterprises${search}`).pipe(
       map(({ enterprises }) => this.setCompany(enterprises))
     );

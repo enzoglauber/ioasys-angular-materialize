@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+
 import { CompanyService } from '../../core/services/company.service';
 import { Company } from '../../shared/interfaces';
 
@@ -9,6 +10,7 @@ import { Company } from '../../shared/interfaces';
   styleUrls: ['./companies.component.scss']
 })
 export class CompaniesComponent implements OnInit {
+  @ViewChildren('input') input: QueryList<ElementRef>;
 
   isSearchMode = false;
   companies$: Observable<Array<Company>>
@@ -28,10 +30,20 @@ export class CompaniesComponent implements OnInit {
 
   toggleSearchMode(): void {
     this.isSearchMode = !this.isSearchMode
+    console.log('input', this.input)
+    setTimeout(()=>{
+      this.input.last.nativeElement.focus()
+    }, 500)
   }
 
   closeSearch(): void {
-    this.search = ''
+    this.setSearch('')
     this.toggleSearchMode()
   }
+
+  setSearch(value): void {
+    this.search = value;
+    this.search$.next(value);
+  }
+
 }
