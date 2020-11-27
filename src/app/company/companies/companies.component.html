@@ -1,8 +1,8 @@
 <app-header class="header">
-  <form *ngIf="isSearchMode">
+  <form [ngClass]="{'d-none': !isSearchMode}">
     <div class="input-field">
       <input
-        #input
+        #inputSearch
         id="search"
         type="search"
         [(ngModel)]="search"
